@@ -17,7 +17,7 @@ namespace PlanYourHeist
 
         public override string ToString()
         {
-            return $"{Name} is at {SkillLevel} and {CourageFactor} courage factor.";
+            return $"{Name} is at skill level {SkillLevel} and courage factor {CourageFactor}.";
         }
 
     }
