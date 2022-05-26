@@ -10,6 +10,8 @@ namespace PlanYourHeist
             Console.WriteLine("Plan Your Heist!");
 
             List<TeamMember> teamList = new List<TeamMember>();
+            Bank thisBank = new Bank(100);
+            int totalSkillLevel = 0;
 
             Console.Write("Enter a team member's name: ");
             string name = Console.ReadLine();
@@ -17,6 +19,7 @@ namespace PlanYourHeist
             Console.Write("Enter a team member's skill level: ");
             string skill = Console.ReadLine();
             int skillLvl = int.Parse(skill);
+            totalSkillLevel += skillLvl;
 
             Console.Write("Enter a tem member's courage factor: ");
             string courage = Console.ReadLine();
@@ -46,6 +49,7 @@ namespace PlanYourHeist
 
                     Console.Write("Enter a team member's skill level: ");
                     skillLvl = int.Parse(Console.ReadLine());
+                    totalSkillLevel += skillLvl;
 
                     Console.Write("Enter a tem member's courage factor: ");
                     courageFact = decimal.Parse(Console.ReadLine());
@@ -63,6 +67,15 @@ namespace PlanYourHeist
 
             Team team = new Team(teamList);
             team.Description();
+
+            if (totalSkillLevel >= thisBank.Difficulty)
+            {
+                Console.WriteLine("Success!");
+            }
+            else
+            {
+                Console.WriteLine("Heist failed!");
+            }
 
             // TeamMember member = new TeamMember(name, skillLvl, courageFact);
             // Console.WriteLine(member);
