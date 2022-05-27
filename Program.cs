@@ -10,12 +10,17 @@ namespace PlanYourHeist
             Console.WriteLine("Plan Your Heist!");
             Console.WriteLine("----------------");
 
+            Temp tempObj = new Temp
+            {
+                Name = "Twitter"
+            };
+
+            Temp tempObj2 = new Temp("Facebook");
+            Console.WriteLine(tempObj.Name);
+            Console.WriteLine(tempObj2.Name);
+
             List<TeamMember> teamList = new List<TeamMember>();
 
-            Random r = new Random();
-            int randomNum= r.Next(-10, 11);
-
-            Bank thisBank = new Bank(100 + randomNum);
             int totalSkillLevel = 0;
 
             Console.Write("Enter a team member's name: ");
@@ -73,20 +78,51 @@ namespace PlanYourHeist
             Team team = new Team(teamList);
             team.Description();
 
-            Console.WriteLine($"The team's combined skill level is: {totalSkillLevel}.");
-            Console.WriteLine($"The bank's difficulty level is: {thisBank.Difficulty}.");
+            Console.WriteLine();
+            Console.Write("Enter the number of trial runs: ");
+            string inputTrials = Console.ReadLine();
+            int trialRuns = 0;
+            bool success = int.TryParse(inputTrials, out trialRuns);
+            //int trialRuns = int.Parse(inputTrials);
 
-            if (totalSkillLevel >= thisBank.Difficulty)
+            Console.Write("Enter the bank's difficulty level: ");
+            string inputDiffLvl = Console.ReadLine();
+            int diffLevel = 0;
+            bool parsed = int.TryParse(inputDiffLvl, out diffLevel);
+
+            Console.WriteLine();
+
+            int index = 0;
+            int successRuns = 0;
+            int failedRuns = 0;
+            while(index < trialRuns)
             {
-                Console.WriteLine("Success!");
-            }
-            else
-            {
-                Console.WriteLine("Heist failed!");
+                Random r = new Random();
+                int randomNum= r.Next(-10, 11);
+                Bank thisBank = new Bank(diffLevel + randomNum);
+
+                Console.WriteLine($"The team's combined skill level is: {totalSkillLevel}.");
+                Console.WriteLine($"The bank's difficulty level is: {thisBank.Difficulty}.");
+
+                if (totalSkillLevel >= thisBank.Difficulty)
+                {
+                    Console.WriteLine("Success!");
+                    successRuns++;
+                }
+                else
+                {
+                    Console.WriteLine("Heist failed!");
+                    failedRuns++;
+                }
+                index++;
             }
 
             // TeamMember member = new TeamMember(name, skillLvl, courageFact);
             // Console.WriteLine(member);
+
+            Console.WriteLine();
+            Console.WriteLine($"Number of successful runs: {successRuns}");
+            Console.WriteLine($"Number of failed runs: {failedRuns}");
         }
     }
 
